@@ -1,7 +1,7 @@
-import fileSystem.DirectoryDetails;
-import fileSystem.FileDetails;
-import fileSystem.FileDetailsFactory;
+import fileSystem.*;
 import hamburgersDecorator.Hamburger;
+import hamburgersDecorator.HamburgerFactory;
+import hamburgersDecorator.HamburgerToppingFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -38,7 +38,7 @@ public class Main {
         return root;
     }
     public static void fileMenu(Scanner scanner) throws IOException {
-        String path="files.txt";
+        String path="src\\files.txt";
         FileDetails root= readFileDetails(path);
         System.out.println("Choose from the following options:\n" +
                 "q: quit\n" +
@@ -50,16 +50,20 @@ public class Main {
         while (!(myString = scanner.nextLine()).equals("q")){
             switch (myString){
                 case "c":
-                    //TODO: Add counting behavior
+                    FileCountVisitor fileCountVisitor=new FileCountVisitor();
+                    root.accept(fileCountVisitor);
+                    System.out.println("Found "+fileCountVisitor.getFilesCount()+" files");
                     break;
                 case "sz":
-                    //TODO: Add size calculation behavior
+                    SizeCalculatorVisitor sizeCalculatorVisitor=new SizeCalculatorVisitor();
+                    root.accept(sizeCalculatorVisitor);
+                    System.out.println("the total size is "+sizeCalculatorVisitor.getTotalSize()+" bytes");
                     break;
                 case "st":
-                    //TODO: Add statistics behavior
+                    root.accept(new StatisticsVistor());
                     break;
                 case "sh":
-                    //TODO: Add short representation behavior
+                    root.accept(new ShortPrintVisitor());
             }
         }
     }
@@ -70,8 +74,8 @@ public class Main {
                 "sp: spicy\n" +
                 "la: lamb\n" +
                 "hm: homemade");
-        // TODO: Add a hamburgersDecorator.Hamburger Factory and use it to create a hamburgersDecorator.Hamburger
-        Hamburger hamburger = null;
+
+        Hamburger hamburger = HamburgerFactory.createHamburger(scanner.nextLine());
 
         String choice="";
         while (!choice.equals("s")) {
@@ -96,7 +100,7 @@ public class Main {
                 "or: onion rings\n" +
                 "sa: salad\n" +
                 "fe: friedEgg");
-        // TODO: Add a hamburgersDecorator.Hamburger-Topping Factory and use it to create a decorated hamburgersDecorator.Hamburger
-        return null;
+
+        return HamburgerToppingFactory.createToppingHamburger(scanner.nextLine(),hamburger);
     }
 }

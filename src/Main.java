@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Choose from the following options:\n" +
-                "f: fileSystem.FileDetails\n" +
+                "f: FileDetails\n" +
                 "h: Hamburgers");
         String choice = scanner.nextLine();
         if (choice.equals("f")){
@@ -99,7 +99,7 @@ public class Main {
                 "ch: chips\n" +
                 "or: onion rings\n" +
                 "sa: salad\n" +
-                "fe: friedEgg");
+                "fe: fried egg");
 
         return HamburgerToppingFactory.createToppingHamburger(scanner.nextLine(),hamburger);
     }

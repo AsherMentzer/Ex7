@@ -1,10 +1,8 @@
 package fileSystem;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-// TODO: Implement Composite (change this file).
+
 public class DirectoryDetails extends FileDetails {
     List<FileDetails> filesDetails;
     public DirectoryDetails(String path, String name){
